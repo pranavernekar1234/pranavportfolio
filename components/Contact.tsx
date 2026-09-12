@@ -41,12 +41,11 @@ export default function Contact() {
     e.preventDefault();
     setStatus("submitting");
     try {
-      const form = e.currentTarget;
-      const data = new FormData(form);
-      const res = await fetch("/", {
+      const { name, email, message } = formData;
+      const res = await fetch("https://formspree.io/f/YOUR_FORMSPREE_ID", {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams(data as unknown as Record<string, string>).toString(),
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({ name, email, message }),
       });
       if (res.ok) {
         setStatus("success");
@@ -70,22 +69,18 @@ export default function Contact() {
         />
 
         <div className="grid lg:grid-cols-2 gap-10 max-w-4xl mx-auto">
-          {/* Contact links */}
           <ScrollReveal direction="left">
             <div className="space-y-4">
               {contacts.map((c) => {
                 const Icon = c.icon;
                 return (
-                  <a
-                    key={c.label}
-                    href={c.href}
+                 <a
+  key={c.label}
+  href={c.href}
                     target={c.label !== "Email" ? "_blank" : undefined}
                     rel="noopener noreferrer"
                     className="flex items-center gap-4 p-4 rounded-2xl group transition-all"
-                    style={{
-                      border: "1px solid rgba(0,0,0,0.06)",
-                      background: "#FAFAFA",
-                    }}
+                    style={{ border: "1px solid rgba(0,0,0,0.06)", background: "#FAFAFA" }}
                     onMouseEnter={(e) => {
                       const el = e.currentTarget;
                       el.style.background = c.bg;
@@ -121,7 +116,6 @@ export default function Contact() {
             </div>
           </ScrollReveal>
 
-          {/* Form */}
           <ScrollReveal direction="right">
             {status === "success" ? (
               <div
@@ -144,15 +138,7 @@ export default function Contact() {
                 </button>
               </div>
             ) : (
-              <form
-                name="contact"
-                method="POST"
-                data-netlify="true"
-                onSubmit={handleSubmit}
-                className="space-y-4"
-              >
-                <input type="hidden" name="form-name" value="contact" />
-
+              <form onSubmit={handleSubmit} className="space-y-4" noValidate>
                 <div>
                   <label className="block text-xs font-medium mb-1.5" style={{ color: "#374151" }} htmlFor="name">
                     Name
@@ -165,11 +151,7 @@ export default function Contact() {
                     value={formData.name}
                     onChange={(e) => setFormData((f) => ({ ...f, name: e.target.value }))}
                     className="w-full px-4 py-3 rounded-xl text-sm outline-none transition-all"
-                    style={{
-                      border: "1.5px solid rgba(0,0,0,0.1)",
-                      background: "#FAFAFA",
-                      color: "#0F0F0F",
-                    }}
+                    style={{ border: "1.5px solid rgba(0,0,0,0.1)", background: "#FAFAFA", color: "#0F0F0F" }}
                     onFocus={(e) => (e.target.style.borderColor = "#7C3AED")}
                     onBlur={(e) => (e.target.style.borderColor = "rgba(0,0,0,0.1)")}
                     placeholder="Your name"
@@ -188,11 +170,7 @@ export default function Contact() {
                     value={formData.email}
                     onChange={(e) => setFormData((f) => ({ ...f, email: e.target.value }))}
                     className="w-full px-4 py-3 rounded-xl text-sm outline-none transition-all"
-                    style={{
-                      border: "1.5px solid rgba(0,0,0,0.1)",
-                      background: "#FAFAFA",
-                      color: "#0F0F0F",
-                    }}
+                    style={{ border: "1.5px solid rgba(0,0,0,0.1)", background: "#FAFAFA", color: "#0F0F0F" }}
                     onFocus={(e) => (e.target.style.borderColor = "#7C3AED")}
                     onBlur={(e) => (e.target.style.borderColor = "rgba(0,0,0,0.1)")}
                     placeholder="your@email.com"
@@ -211,11 +189,7 @@ export default function Contact() {
                     value={formData.message}
                     onChange={(e) => setFormData((f) => ({ ...f, message: e.target.value }))}
                     className="w-full px-4 py-3 rounded-xl text-sm outline-none transition-all resize-none"
-                    style={{
-                      border: "1.5px solid rgba(0,0,0,0.1)",
-                      background: "#FAFAFA",
-                      color: "#0F0F0F",
-                    }}
+                    style={{ border: "1.5px solid rgba(0,0,0,0.1)", background: "#FAFAFA", color: "#0F0F0F" }}
                     onFocus={(e) => (e.target.style.borderColor = "#7C3AED")}
                     onBlur={(e) => (e.target.style.borderColor = "rgba(0,0,0,0.1)")}
                     placeholder="What would you like to discuss?"
@@ -233,13 +207,8 @@ export default function Contact() {
                   disabled={status === "submitting"}
                   className="btn-primary w-full justify-center"
                 >
-                  {status === "submitting" ? (
-                    <>Sending…</>
-                  ) : (
-                    <>
-                      Send message
-                      <Send size={14} className="btn-arrow" />
-                    </>
+                  {status === "submitting" ? <>Sending…</> : (
+                    <>Send message <Send size={14} className="btn-arrow" /></>
                   )}
                 </button>
               </form>
