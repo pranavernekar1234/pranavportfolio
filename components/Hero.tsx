@@ -102,110 +102,100 @@ export default function Hero() {
               ))}
             </motion.div>
           </motion.div>
+{/* RIGHT — profile */}
+<motion.div
+  initial={{ opacity: 0, x: 40 }}
+  animate={{ opacity: 1, x: 0 }}
+  transition={{
+    duration: 0.6,
+    delay: 0.2,
+    ease: [0.25, 0.46, 0.45, 0.94],
+  }}
+  className="order-1 lg:order-2 flex justify-center lg:justify-end relative"
+>
+  {/* Background glow */}
+  <div
+    className="absolute inset-0 pointer-events-none"
+    aria-hidden="true"
+    style={{
+      background:
+        "radial-gradient(ellipse 70% 70% at 50% 50%, rgba(124, 58, 237, 0.12) 0%, transparent 70%)",
+    }}
+  />
 
-          {/* RIGHT — profile */}
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="order-1 lg:order-2 flex justify-center lg:justify-end relative"
-          >
-            {/* Glow blob behind profile */}
-            <div
-              className="absolute inset-0 pointer-events-none"
-              aria-hidden="true"
-              style={{
-                background:
-                  "radial-gradient(ellipse 70% 70% at 50% 50%, rgba(124, 58, 237, 0.1) 0%, transparent 70%)",
-              }}
-            />
+  {/* Full image section */}
+  <motion.div
+    animate={{ y: [0, -6, 0] }}
+    transition={{
+      duration: 5,
+      repeat: Infinity,
+      ease: "easeInOut",
+    }}
+    className="relative w-72 sm:w-80 lg:w-[320px]"
+  >
+    <div
+      className="relative overflow-hidden"
+      style={{
+        borderRadius: "28px",
+        aspectRatio: "3/4",
+        boxShadow:
+          "0 8px 40px rgba(124, 58, 237, 0.12), 0 2px 8px rgba(0,0,0,0.06)",
+      }}
+    >
+      <Image
+        src="/profile.jpg"
+        alt="Pranav Vernekar"
+        fill
+        priority
+        className="object-cover"
+      />
+    </div>
 
-            {/* Profile card */}
-            <motion.div
-              animate={{ y: [0, -6, 0] }}
-              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-              className="relative w-72 sm:w-80 lg:w-[320px]"
-            >
-              <div
-                className="card overflow-hidden"
-                style={{
-                  borderRadius: "28px",
-                  padding: "10px",
-                  boxShadow: "0 8px 40px rgba(124, 58, 237, 0.12), 0 2px 8px rgba(0,0,0,0.06)",
-                }}
-              >
-                {/* Profile image with fallback */}
-                <div
-                  className="relative overflow-hidden flex items-center justify-center"
-                  style={{
-                    borderRadius: "20px",
-                    aspectRatio: "3/4",
-                    background: "linear-gradient(135deg, #F3EFFE 0%, #EDE9FE 50%, #F5F3FF 100%)",
-                  }}
-                >
-                  <Image
-                    src="/profile.png"
-                    alt="Pranav Vernekar"
-                    fill
-                    className="object-cover"
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.style.display = "none";
-                    }}
-                    priority
-                  />
-                  {/* Fallback initials */}
-                  <div className="flex flex-col items-center gap-4 select-none">
-                    <div
-                      className="w-24 h-24 rounded-full flex items-center justify-center text-white text-3xl font-bold"
-                      style={{ background: "linear-gradient(135deg, #7C3AED, #A855F7)" }}
-                    >
-                      PV
-                    </div>
-                    <p className="text-sm font-semibold" style={{ color: "#7C3AED" }}>
-                      Pranav Vernekar
-                    </p>
-                    <p className="text-xs" style={{ color: "#6B7280" }}>
-                      Cloud & DevOps Engineer
-                    </p>
-                  </div>
-                </div>
+    {/* AWS badge */}
+    <motion.div
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ delay: 0.8 }}
+      className="absolute -right-4 top-8 card px-3 py-2"
+      style={{
+        borderRadius: "10px",
+        boxShadow: "0 4px 16px rgba(0,0,0,0.1)",
+      }}
+    >
+      <p
+        className="text-xs font-semibold"
+        style={{ color: "#FF9900" }}
+      >
+        AWS
+      </p>
+      <p className="text-[10px]" style={{ color: "#6B7280" }}>
+        Cloud
+      </p>
+    </motion.div>
 
-                {/* Name badge */}
-                <div className="px-4 py-3">
-                  <p className="text-sm font-semibold" style={{ color: "#0F0F0F" }}>
-                    Pranav Vernekar
-                  </p>
-                  <p className="text-xs" style={{ color: "#6B7280" }}>
-                    Cloud & DevOps · Gen AI Enthusiast
-                  </p>
-                </div>
-              </div>
-
-              {/* Floating tech badges */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.8 }}
-                className="absolute -right-4 top-8 card px-3 py-2"
-                style={{ borderRadius: "10px", boxShadow: "0 4px 16px rgba(0,0,0,0.1)" }}
-              >
-                <p className="text-xs font-semibold" style={{ color: "#FF9900" }}>AWS</p>
-                <p className="text-[10px]" style={{ color: "#6B7280" }}>Cloud</p>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 1.0 }}
-                className="absolute -left-4 bottom-16 card px-3 py-2"
-                style={{ borderRadius: "10px", boxShadow: "0 4px 16px rgba(0,0,0,0.1)" }}
-              >
-                <p className="text-xs font-semibold" style={{ color: "#7C3AED" }}>Terraform</p>
-                <p className="text-[10px]" style={{ color: "#6B7280" }}>IaC</p>
-              </motion.div>
-            </motion.div>
-          </motion.div>
+    {/* Terraform badge */}
+    <motion.div
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ delay: 1.0 }}
+      className="absolute -left-4 bottom-16 card px-3 py-2"
+      style={{
+        borderRadius: "10px",
+        boxShadow: "0 4px 16px rgba(0,0,0,0.1)",
+      }}
+    >
+      <p
+        className="text-xs font-semibold"
+        style={{ color: "#3a79ed" }}
+      >
+        Azure
+      </p>
+      <p className="text-[10px]" style={{ color: "#6B7280" }}>
+        Cloud
+      </p>
+    </motion.div>
+  </motion.div>
+</motion.div>
         </div>
       </div>
     </section>
